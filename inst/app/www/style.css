@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans");
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap');
+
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.shiny-notification{
+    position: fixed;
+    top: 33%;
+    left: 33%;
+    right: 33%;
+    opacity: 1;
+}
+
+#shiny-notification-panel .progress-bar{
+    background-color: #4caf50
+}
+
+.secondaryHeaders, a{
+    color: #4caf50;
+}   
+
+
+.skin-blue .main-header .navbar {
+   background-color: #4caf50;
+}
+
+.skin-blue .main-header .logo {
+     background-color: #4caf50;
+}
+
+.skin-blue .main-header .logo:hover {
+     background-color: #4caf50;
+}
+
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+    border-left-color: #4caf50;
+}
+
+
+.checksListTopic{
+    color: grey;
+}
+
+.checksListContent {
+    margin-left: 5%;
+    margin-top: -3%;
+}
+
+.checksListContent h4{
+    color: #4caf50;
+    margin-left: 10%;
+    margin-top: -1%;
+}
+
+.btn-group-justified>.btn {
+    width: initial !important;
+}
+
+.btn-group-justified {
+    text-align: right !important;
+}
+
+.element-item { 
+    border: 1px solid #4caf50 !important;
+    margin: 5px !important;
+    padding: 10px !important;
+    width: 32% !important; 
+    height: auto !important;
+    background: transparent !important; 
+    padding-bottom: 10px !important; 
+    
+}
