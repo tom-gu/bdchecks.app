@@ -27,9 +27,7 @@ $('.btn-group').each( function( i, buttonGroup ) {
   });
 });
 
-$(window).load(function() {
-  setTimeout(
-    function() {
-      $grid.isotope('shuffle');
-    }, 2000);
+$grid.on( 'click', '.element-item', function() {
+  var checkbox = $("input:checkbox[value=" + this.getElementsByTagName("h4")[0].innerHTML + "]");
+  checkbox.prop("checked", !checkbox.prop("checked"));
 });

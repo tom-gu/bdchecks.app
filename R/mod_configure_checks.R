@@ -68,13 +68,13 @@ mod_configure_checks_ui <- function(id) {
             ),
             
             fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Category of Quality Check: ")),
+              div(class = "checksListTopic col-sm-4", p("Category of Check: ")),
               div(class = "checksListTitle col-sm-8",
                   p(check@description$DarwinCoreClass))
             ),
             
             fluidRow(
-              div(class = "checksListTopic col-sm-4", p("DWC Field Targetted by Check: ")),
+              div(class = "checksListTopic col-sm-4", p("DWC Field Targetted: ")),
               div(class = "checksListTitle col-sm-8",
                   p(check@input$Target))
             ),
@@ -96,7 +96,7 @@ mod_configure_checks_ui <- function(id) {
     12,
     
     fluidRow(column(
-      6,
+      5,
       div(
         p("Sort Checks By: "),
         class = "btn-group btn-group-justified",
@@ -148,10 +148,17 @@ mod_configure_checks_ui <- function(id) {
       )
       ,
       column(
-        3,
+        2,
         p("Select None: "),
         checkboxInput(ns("showDetailed"), label = "", value = FALSE)
+      ),
+      column(
+        4,
+        p("Next:"),
+        actionButton("configureToPerform", "Perform Cleaning")
       )
+      
+      
       
     )),
     

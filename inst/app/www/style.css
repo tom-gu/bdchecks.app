@@ -70,5 +70,25 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
     height: auto !important;
     background: transparent !important; 
     padding-bottom: 10px !important; 
-    
 }
+
+.element-item:hover {
+    background: #4caf50 !important;
+    cursor: pointer;
+    border: 1px solid #fff !important;
+}
+
+.element-item:hover h4{
+    color: #fff;
+}
+
+.control-header{
+    text-align: center;
+}
+
+.stats-green{
+    font-size: 60px;
+    color: #00a65a;
+    font-family: 'Roboto Slab', serif;
+}
+

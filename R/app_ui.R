@@ -1,8 +1,11 @@
 #' @import shiny shinydashboard mod_add_data_ui
 app_ui <- function() {
+  dbHeader <- dashboardHeader()
+  dbHeader$children[[2]]$children <- tags$img(src='www/bdchecks-logo.png',height='50',width='50')
+  
   tagList(
     dashboardPage(
-    dashboardHeader(title = "bdchecks"),
+      dbHeader,
     
     dashboardSidebar(sidebarMenu(
       id = "sideBar",
@@ -15,10 +18,17 @@ app_ui <- function() {
         "Configure Cleaning",
         tabName = "configure",
         icon = icon("wrench")
+      ),
+      menuItem(
+        "Perform Cleaning",
+        tabName = "clean",
+        icon = icon("broom")
+      ),
+      menuItem(
+        "Cite Us",
+        tabName = "cite",
+        icon = icon("copyright")
       )
-      # menuItem("Darwinize",
-      #          tabName = "darwinize",
-      #          icon = icon("blocks"))
     )),
     
     dashboardBody(
@@ -41,8 +51,22 @@ app_ui <- function() {
         
         tabItem("configure",
                 fluidRow(
-                  div(mod_configure_checks_ui("bdChecksConfigure"))
-                  ))
+                  column(12,
+                         h1("Select Checks to Perform"),
+                         br(),
+                         div(mod_configure_checks_ui("bdChecksConfigure"))
+                        )
+                  )),
+        
+        tabItem("clean",
+                fluidRow(
+                  div(mod_perform_checks_ui("bdChecksPerform"))
+                )),
+        
+        tabItem("cite",
+                fluidRow(
+                  div(bddwc.app:: mod_citation_ui("bdcite"))
+                ))
       )
     )
   ),

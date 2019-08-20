@@ -21,6 +21,16 @@ app_server <- function(input, output,session) {
         id = "bdChecksConfigure"
     )
     
+    callModule(
+        mod_perform_checks_server,
+        id = "bdChecksPerform"
+    )
+    
+    callModule(
+        bddwc.app::mod_citation_server,
+        id = "bdcite"
+    )
+    
     #------------- Modules --------------
     
     
@@ -35,6 +45,16 @@ app_server <- function(input, output,session) {
             updateTabItems(session, "sideBar", "configure")
         }
     })
+    
+    observeEvent(input$sideBar, {
+        if(input$sideBar == "configure"){
+            shinyjs::runjs("$grid.isotope('shuffle');")
+        }
+       
+        
+        
+    })
+    
     
     #------------- Events --------------
 }
