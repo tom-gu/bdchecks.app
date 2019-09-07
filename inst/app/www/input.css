@@ -53,6 +53,7 @@
   position: relative;
   padding-left: 1.95em;
   cursor: pointer;
+  z-index: 9999;
 }
 
 /* checkbox aspect */

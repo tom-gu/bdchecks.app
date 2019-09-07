@@ -1,11 +1,14 @@
-#' @import shiny bddwc.app
+#' @import shiny bddwc.app shinyjs
 app_server <- function(input, output,session) {
     
     #------------- Data --------------
     data_store <-
         shiny::reactiveValues(
-            data_user = data.frame()
+            data_user = data.frame(),
+            data_checks = character()
         )
+    
+    shuffled <- FALSE
     #------------- Data --------------
     
     
@@ -16,19 +19,22 @@ app_server <- function(input, output,session) {
             id = "bdFileInput"
         )
     
-    callModule(
+    data_store$data_checks <- callModule(
         mod_configure_checks_server,
         id = "bdChecksConfigure"
     )
     
     callModule(
         mod_perform_checks_server,
-        id = "bdChecksPerform"
+        id = "bdChecksPerform",
+        data_store$data_user,
+        data_store$data_checks
     )
     
     callModule(
         bddwc.app::mod_citation_server,
-        id = "bdcite"
+        id = "bdcite",
+        package = "bdchecks.app"
     )
     
     #------------- Modules --------------
@@ -46,12 +52,17 @@ app_server <- function(input, output,session) {
         }
     })
     
+    observeEvent(input$configureToPerform, {
+        
+        
+        updateTabItems(session, "sideBar", "clean")
+    })
+    
     observeEvent(input$sideBar, {
-        if(input$sideBar == "configure"){
+        if(input$sideBar == "configure" && !shuffled){
+            shuffled <<- TRUE
             shinyjs::runjs("$grid.isotope('shuffle');")
         }
-       
-        
         
     })
     

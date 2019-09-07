@@ -12,7 +12,7 @@
 #'
 #' @keywords internal
 #' @export
-#' @importFrom shiny NS tagList
+#' @import shiny bdchecks
 mod_configure_checks_ui <- function(id) {
   ns <- NS(id)
   
@@ -23,73 +23,67 @@ mod_configure_checks_ui <- function(id) {
   severity <- get_dc_groups("Severity")
   
   
-  
   components <- list()
   
   for (check in bdchecks::data.checks@dc_body) {
-    components[[length(components) + 1]] <-
-      div(
-        class = "element-item checksListContent",
-        "darwinCoreClass" = darwinCoreClass[check@name, ]$group,
-        "dimension" = dimension[check@name, ]$group,
-        "warning" = warning[check@name, ]$group,
-        "output" = output[check@name, ]$group,
-        "severity" = severity[check@name, ]$group,
-        
-        HTML(
-          paste(
-            "<input type=checkbox name=typeInput value=",
-            check@name,
-            ">"
-          )
-        ),
-        
-        h4(check@name),
-        
-        conditionalPanel(
-          "input['bdChecksConfigure-showDetailed'] == false",
-          div(
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Description: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@description$Main))
-            ),
-            
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Sample Passing Data: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@description$Example$Pass))
-            ),
-            
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Sample Failing Data: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@description$Example$Fail))
-            ),
-            
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Category of Check: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@description$DarwinCoreClass))
-            ),
-            
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("DWC Field Targetted: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@input$Target))
-            ),
-            
-            fluidRow(
-              div(class = "checksListTopic col-sm-4", p("Sorting Flags: ")),
-              div(class = "checksListTitle col-sm-8",
-                  p(check@flags))
-            )
+    components[[length(components) + 1]] <- tagList(
+    div(
+      class = "element-item checksListContent",
+      "darwinCoreClass" = darwinCoreClass[check@name, ]$group,
+      "dimension" = dimension[check@name, ]$group,
+      "warning" = warning[check@name, ]$group,
+      "output" = output[check@name, ]$group,
+      "severity" = severity[check@name, ]$group,
+      
+      HTML(
+        paste(
+          "<input type=checkbox name=", ns("typeInput"), " value=", check@name, ">"
+        )
+      ),
+      
+      fluidRow(column(6, div(h4(check@name), class = "leftSide")), column(6, div("", class = "rightSide"))), 
+      
+      conditionalPanel(
+        "input['bdChecksConfigure-showDetailed'] == true",
+        div(
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("Description: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@description$Main))
+          ),
+          
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("Sample Passing Data: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@description$Example$Pass))
+          ),
+          
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("Sample Failing Data: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@description$Example$Fail))
+          ),
+          
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("Category of Check: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@description$DarwinCoreClass))
+          ),
+          
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("DWC Field Targetted: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@input$Target))
+          ),
+          
+          fluidRow(
+            div(class = "checksListTopic col-sm-4", p("Sorting Flags: ")),
+            div(class = "checksListTitle col-sm-8",
+                p(check@flags))
           )
         )
-        
-        
       )
-    
+    ))
   }
   
   tagList(column(
@@ -102,31 +96,31 @@ mod_configure_checks_ui <- function(id) {
         class = "btn-group btn-group-justified",
         "role" = "group",
         actionButton(
-          "a",
+          "sortBydarwinCoreClass",
           class = "button is-checked ",
           label = "Darwin Core Class",
           "data-sort-value" = "darwinCoreClass"
         ),
         actionButton(
-          "b",
+          "sortBydimension",
           class = "button",
           label = "Dimension",
           "data-sort-value" = "dimension"
         ),
         actionButton(
-          "c",
+          "sortBywarning",
           class = "button",
           label = "Warning Type",
           "data-sort-value" = "warning"
         ),
         actionButton(
-          "d",
+          "sortByoutput",
           class = "button",
           label = "Output Type",
           "data-sort-value" = "output"
         ),
         actionButton(
-          "e",
+          "sortByseverity",
           class = "button",
           label = "Severity",
           "data-sort-value" = "severity"
@@ -137,7 +131,7 @@ mod_configure_checks_ui <- function(id) {
       6,
       column(
         3,
-        p("Show Stacked View: "),
+        p("Show Detailed View: "),
         checkboxInput(ns("showDetailed"), label = "", value = FALSE)
       )
       ,
@@ -151,26 +145,12 @@ mod_configure_checks_ui <- function(id) {
         2,
         p("Select None: "),
         checkboxInput(ns("showDetailed"), label = "", value = FALSE)
-      ),
-      column(
-        4,
-        p("Next:"),
-        actionButton("configureToPerform", "Perform Cleaning")
       )
-      
-      
-      
     )),
     
-    div(class = "grid", components)
-    
-    # actionButton("a", class = "button is-checked", label = "Darwin Core Class", "data-filter" = ".DarwinCoreClass .Event"),
-    # actionButton("b", class = "button", label = "Dimension", "data-filter" = ".Dimension .Location"),
-    # actionButton("c", class = "button", label = "Warning Type", "data-filter" = ".Warning .Record"),
-    # actionButton("d", class = "button", label = "Output Type", "data-filter" = ".Output .Record_level_Terms"),
-    # actionButton("e", class = "button", label = "Severity", "data-filter" = ".Severity .Taxon_Occurrence")),
-    
-    
+    div(id = ns("typeInput"),
+        class = "form-group shiny-input-checkboxgroup shiny-input-container shiny-bound-input grid",
+        components)
     
   ))
 }
@@ -184,15 +164,25 @@ mod_configure_checks_ui <- function(id) {
 mod_configure_checks_server <- function(input, output, session) {
   ns <- session$ns
   
-  observeEvent(input$showDetailed, {
-    shinyjs::runjs("$grid.isotope( 'reloadItems' ).isotope();")
-    
+  returnData <- character()
+  
+  observeEvent(input$typeInput, {
+    returnData <<- input$typeInput
   })
   
+  
+  observeEvent(input$showDetailed, {
+    shinyjs::runjs("$grid.isotope( 'reloadItems' ).isotope();")
+  })
+  
+  returnDataReact <- reactive({
+    # Input actions that need to trigger new dataframe return 
+    input$typeInput
+    
+    returnData
+  })
+  
+  
+  return(returnDataReact)
+  
 }
-
-## To be copied in the UI
-# mod_configure_checks_ui("configure_checks_ui_1")
-
-## To be copied in the server
-# callModule(mod_configure_checks_server, "configure_checks_ui_1")

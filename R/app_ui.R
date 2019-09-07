@@ -1,4 +1,4 @@
-#' @import shiny shinydashboard mod_add_data_ui
+#' @import shiny shinydashboard bddwc.app golem
 app_ui <- function() {
   dbHeader <- dashboardHeader()
   dbHeader$children[[2]]$children <- tags$img(src='www/bdchecks-logo.png',height='50',width='50')
@@ -54,7 +54,13 @@ app_ui <- function() {
                   column(12,
                          h1("Select Checks to Perform"),
                          br(),
-                         div(mod_configure_checks_ui("bdChecksConfigure"))
+                         div(mod_configure_checks_ui("bdChecksConfigure")),
+                         
+                         div(
+                           id = "configureToPerformDiv",
+                           tags$br(),
+                           actionButton("configureToPerform", "Next: Perform Cleaning")
+                         )
                         )
                   )),
         

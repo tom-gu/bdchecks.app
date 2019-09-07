@@ -50,7 +50,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
 
 .checksListContent h4{
     color: #4caf50;
-    margin-left: 10%;
+    margin-left: 15%;
     margin-top: -1%;
 }
 
@@ -92,3 +92,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
     font-family: 'Roboto Slab', serif;
 }
 
+.rightSide {
+    position: absolute;
+    right: 10%;
+    color: grey;
+}
+
+.shiny-input-container:not(.shiny-input-container-inline){
+    width: auto;
+}
+
+#cleanPane .readyButton {
+    background-color: transparent;
+}
+
+#cleanPane .activeButton {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.shiny-notification {
+    background-color: #4caf50;
+    color: #fff;
+    opacity: 1;
+}
