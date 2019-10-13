@@ -1,4 +1,4 @@
-#' @import shiny bddwc.app shinyjs
+#' @import shiny bdutilities.app shinyjs
 app_server <- function(input, output,session) {
     
     #------------- Data --------------
@@ -15,7 +15,7 @@ app_server <- function(input, output,session) {
     #------------- Modules --------------
     data_store$data_user <-
         callModule(
-            bddwc.app::mod_add_data_server,
+            bdutilities.app::mod_add_data_server,
             id = "bdFileInput"
         )
     
@@ -32,7 +32,7 @@ app_server <- function(input, output,session) {
     )
     
     callModule(
-        bddwc.app::mod_citation_server,
+        bdutilities.app::mod_citation_server,
         id = "bdcite",
         package = "bdchecks.app"
     )

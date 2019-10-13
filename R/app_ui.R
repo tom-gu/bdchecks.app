@@ -1,4 +1,4 @@
-#' @import shiny shinydashboard bddwc.app golem
+#' @import shiny shinydashboard bdutilities.app golem
 app_ui <- function() {
   dbHeader <- dashboardHeader()
   dbHeader$children[[2]]$children <- tags$img(src='www/bdchecks-logo.png',height='50',width='50')
@@ -39,7 +39,7 @@ app_ui <- function() {
         # ------------- Add Data Module -------------------
         tabItem("add",
                 fluidRow(
-                  div(bddwc.app::mod_add_data_ui("bdFileInput")),
+                  div(bdutilities.app::mod_add_data_ui("bdFileInput")),
                   
                   column(12,
                          div(
@@ -71,7 +71,7 @@ app_ui <- function() {
         
         tabItem("cite",
                 fluidRow(
-                  div(bddwc.app:: mod_citation_ui("bdcite"))
+                  div(bdutilities.app:: mod_citation_ui("bdcite"))
                 ))
       )
     )
