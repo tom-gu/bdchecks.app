@@ -34,13 +34,12 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-    bdchecks,
-    bdutilities.app,
     DT,
     golem,
     shiny,
     shinydashboard,
     shinyjs
+Remotes: bd-R/bdchecks, bd-R/bdutilities.app
 RoxygenNote: 6.1.1
 URL: https://github.com/bd-R/bdchecks.app
 BugReports: https://github.com/bd-R/bdchecks.app/issues
