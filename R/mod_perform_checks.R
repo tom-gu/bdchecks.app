@@ -40,7 +40,7 @@ mod_perform_checks_ui <- function(id) {
                          actionButton(ns("failed"), "Select All Failed Records", width = "14%"),
                          actionButton(ns("missed"), "Select All Missing Records", width = "14%"),
                          actionButton(ns("clear"), "Clear Selections", width = "14%"),
-                         actionButton(ns("accept"), "Accept Filter", width = "14%"),
+                         actionButton(ns("accept"), "Filter Out Selected", width = "14%"),
                          downloadButton(ns("download"), "Download Data", width = "14%")
                        )
                        
@@ -71,6 +71,13 @@ mod_perform_checks_server <- function(input, output, session, user_data, quality
   clean_data <- data.frame()
   
   observeEvent(input$perform, {
+    if (length(user_data()) == 0 || length(quality_checks()) == 0) {
+      showNotification("Please add data and checks first",
+                       duration = 6)
+      
+      return()
+    }
+    
     check_result <<-
       bdchecks::perform_dc(user_data(), quality_checks())
     

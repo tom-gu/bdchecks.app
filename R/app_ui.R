@@ -13,12 +13,12 @@ app_ui <- function() {
             icon = icon("plus-circle")
           ),
           menuItem(
-            "Configure Cleaning",
+            "Select Data Checks",
             tabName = "configure",
             icon = icon("wrench")
           ),
           menuItem(
-            "Perform Cleaning",
+            "Perform Data Checks",
             tabName = "clean",
             icon = icon("broom")
           ),
