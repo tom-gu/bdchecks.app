@@ -53,9 +53,14 @@ app_server <- function(input, output,session) {
     })
     
     observeEvent(input$configureToPerform, {
+        dat <- data_store$data_checks
         
-        
-        updateTabItems(session, "sideBar", "clean")
+        if (length(dat()) == 0) {
+            showNotification("Please add checks",
+                             duration = 6)
+        } else {
+            updateTabItems(session, "sideBar", "clean")
+        }
     })
     
     observeEvent(input$sideBar, {
@@ -63,7 +68,6 @@ app_server <- function(input, output,session) {
             shuffled <<- TRUE
             shinyjs::runjs("$grid.isotope('shuffle');")
         }
-        
     })
     
     

@@ -136,16 +136,18 @@ mod_configure_checks_ui <- function(id) {
       )
       ,
       column(
-        2,
-        p("Select All: "),
-        checkboxInput(ns("showDetailed"), label = "", value = FALSE)
+        4,
+        p("Quick Options:"),
+        actionButton(
+          ns("all"),
+          label = "Select All"
+        ),
+        actionButton(
+          ns("none"),
+          label = "Deselect All"
+        )
       )
-      ,
-      column(
-        2,
-        p("Select None: "),
-        checkboxInput(ns("showDetailed"), label = "", value = FALSE)
-      )
+     
     )),
     
     div(id = ns("typeInput"),
@@ -175,8 +177,24 @@ mod_configure_checks_server <- function(input, output, session) {
     shinyjs::runjs("$grid.isotope( 'reloadItems' ).isotope();")
   })
   
+  observeEvent(input$all, {
+    updateCheckboxGroupInput(
+      session,
+      "typeInput",
+      selected = names(bdchecks::data.checks@dc_body)
+    )
+  })
+  
+  observeEvent(input$none, {
+    updateCheckboxGroupInput(
+      session,
+      "typeInput",
+      selected = names(bdchecks::data.checks@dc_body[1000])
+    )
+  })
+  
   returnDataReact <- reactive({
-    # Input actions that need to trigger new dataframe return 
+    # Input actions that need to trigger new dataframe return
     input$typeInput
     
     returnData
