@@ -17,11 +17,10 @@ mod_configure_checks_ui <- function(id) {
   ns <- NS(id)
   
   darwinCoreClass <- get_dc_groups("DarwinCoreClass")
-  dimension <- get_dc_groups("Dimension")
-  warning <- get_dc_groups("Warning")
-  output <- get_dc_groups("Output")
-  severity <- get_dc_groups("Severity")
-  
+  dimension <- get_dc_groups("dimension")
+  warning <- get_dc_groups("warning")
+  output <- get_dc_groups("output")
+  # severity <- get_dc_groups("severity")
   
   components <- list()
   
@@ -33,7 +32,7 @@ mod_configure_checks_ui <- function(id) {
       "dimension" = dimension[check@name, ]$group,
       "warning" = warning[check@name, ]$group,
       "output" = output[check@name, ]$group,
-      "severity" = severity[check@name, ]$group,
+      # "severity" = severity[check@name, ]$group,
       
       HTML(
         paste(
@@ -49,37 +48,37 @@ mod_configure_checks_ui <- function(id) {
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("Description: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@description$Main))
+                p(check@information$description))
           ),
           
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("Sample Passing Data: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@description$Example$Pass))
+                p(paste(check@example$pass, check@example$input_pass)))
           ),
           
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("Sample Failing Data: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@description$Example$Fail))
+                p(paste(check@example$fail, check@example$input_fail)))
           ),
           
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("Category of Check: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@description$DarwinCoreClass))
+                p(check@information$darwin_core_class))
           ),
           
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("DWC Field Targetted: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@input$Target))
+                p(check@input$target))
           ),
           
           fluidRow(
             div(class = "checksListTopic col-sm-4", p("Sorting Flags: ")),
             div(class = "checksListTitle col-sm-8",
-                p(check@flags))
+                p(check@information$keywords))
           )
         )
       )
@@ -117,14 +116,14 @@ mod_configure_checks_ui <- function(id) {
           "sortByoutput",
           class = "button",
           label = "Output Type",
-          "data-sort-value" = "output"
-        ),
-        actionButton(
-          "sortByseverity",
-          class = "button",
-          label = "Severity",
-          "data-sort-value" = "severity"
-        )
+          "data-sort-value" = "output")
+        # ),
+        # actionButton(
+        #   "sortByseverity",
+        #   class = "button",
+        #   label = "Severity",
+        #   "data-sort-value" = "severity"
+        # )
       )
     ),
     column(

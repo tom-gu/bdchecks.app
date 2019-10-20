@@ -63,6 +63,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
 }
 
 .element-item { 
+    overflow: hidden;
     border: 1px solid #4caf50 !important;
     margin: 5px !important;
     padding: 10px !important;

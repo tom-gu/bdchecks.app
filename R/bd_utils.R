@@ -5,14 +5,14 @@ get_dc_groups <- function(group){
         if (group == "DarwinCoreClass") {
             data.frame(
                 DC = x@name,
-                group = gsub(" ", "_", x@description$DarwinCoreClass),
-                groupName = gsub("_", " ", x@description$DarwinCoreClass)
+                group = gsub(" ", "_", x@information$darwin_core_class),
+                groupName = gsub("_", " ", x@information$darwin_core_class)
             )
         } else {
             data.frame(
                 DC = x@name,
-                group = gsub(" ", "_", x@flags[[group]]),
-                groupName = gsub("_", " ", x@flags[[group]])
+                group = gsub(" ", "_", x@information[[group]]),
+                groupName = gsub("_", " ", x@information[[group]])
             )
         }
     })
