@@ -37,6 +37,8 @@ app_ui <- function() {
                   fluidRow(
                     div(bdutilities.app::mod_add_data_ui("bdFileInput")),
                     
+                    bdutilities.app::mod_darwinize_ui("darwinize"),
+                    
                     column(12,
                            div(
                              id = "dataToDictionaryDiv",

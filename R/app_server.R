@@ -1,10 +1,11 @@
-#' @import shiny bdutilities.app shinyjs
+#' @import shiny bdutilities.app shinyjs bdutilities
 app_server <- function(input, output,session) {
     
     #------------- Data --------------
     data_store <-
         shiny::reactiveValues(
             data_user = data.frame(),
+            darwinized_data = data.frame(),
             data_checks = character()
         )
     
@@ -18,6 +19,11 @@ app_server <- function(input, output,session) {
             bdutilities.app::mod_add_data_server,
             id = "bdFileInput"
         )
+    
+    data_store$darwinized_data <-
+        callModule(bdutilities.app::mod_darwinize_server,
+                   "darwinize",
+                   dat = data_store$data_user)
     
     data_store$data_checks <- callModule(
         mod_configure_checks_server,
@@ -42,9 +48,17 @@ app_server <- function(input, output,session) {
     
     #------------- Events --------------
     observeEvent(input$dataToDictionary, {
-        dat <- data_store$data_user
+        idata <- bdutilities::return_core(data_store$data_user)
+        dData <- bdutilities::return_core(data_store$darwinized_data)
         
-        if (length(dat()) == 0) {
+        if (length(dData) > 0) {
+            data_store$data_user <<- dData
+            data_store$darwinized_data <<- data.frame()
+        } else {
+            data_store$data_user <<- idata
+        }
+        
+        if (length(data_store$data_user) == 0) {
             showNotification("Please add data",
                              duration = 6)
         } else {
