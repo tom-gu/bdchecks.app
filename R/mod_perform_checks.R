@@ -12,7 +12,7 @@
 #'
 #' @keywords internal
 #' @export
-#' @import shiny DT
+#' @import shiny DT bdutilities
 mod_perform_checks_ui <- function(id) {
   ns <- NS(id)
   tagList(column(12,
@@ -71,7 +71,7 @@ mod_perform_checks_server <- function(input, output, session, user_data, quality
   clean_data <- data.frame()
   
   observeEvent(input$perform, {
-    if (length(user_data()) == 0 || length(quality_checks()) == 0) {
+    if (length(bdutilities::return_core(user_data)) == 0 || length(quality_checks()) == 0) {
       showNotification("Please add data and checks first",
                        duration = 6)
       
@@ -79,7 +79,7 @@ mod_perform_checks_server <- function(input, output, session, user_data, quality
     }
     
     check_result <<-
-      bdchecks::perform_dc(user_data(), quality_checks())
+      bdchecks::perform_dc(bdutilities::return_core(user_data), quality_checks())
     
     check_summary <<-
       bdchecks::summary_dc(check_result, fancy = FALSE, filtering_dt = TRUE)
@@ -171,7 +171,7 @@ mod_perform_checks_server <- function(input, output, session, user_data, quality
   
   output$total <-
     renderText({
-      nrow(user_data())
+      nrow(bdutilities::return_core(user_data))
     })
   
   output$checks <-
