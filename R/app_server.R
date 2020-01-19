@@ -1,6 +1,10 @@
 #' @import shiny bdutilities.app shinyjs bdutilities
 app_server <- function(input, output,session) {
     
+    session$onSessionEnded(function() {
+        stopApp()
+    })
+    
     #------------- Data --------------
     data_store <-
         shiny::reactiveValues(
