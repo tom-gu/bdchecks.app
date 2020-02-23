@@ -16,19 +16,20 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
 }
 
 .primaryHeader {
-  color: #3c8dbc;
+  color: #90e692;
 }
 
 textarea {
   font-family: monospace;
+  font-size: 12px !important;
   min-height: 400px;
-  min-width: 600px;
+  min-width: 500px;
 }
 
 #yaml textarea {
   min-height: 800px;
-  background: lightslategray;
-    color: darkblue;
+    background: #222d33;
+    color: #a5b3ba;
 }
 
 .form-control { 
@@ -37,4 +38,25 @@ textarea {
 
 hr {
   border-top: 1px solid black;
+}
+
+.secondaryHeaders, a{
+    color: #90e692;
+}   
+
+
+.skin-blue .main-header .navbar {
+   background-color: #90e692;
+}
+
+.skin-blue .main-header .logo {
+     background-color: #90e692;
+}
+
+.skin-blue .main-header .logo:hover {
+     background-color: #90e692;
+}
+
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+    border-left-color: #90e692;
 }

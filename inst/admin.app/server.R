@@ -2,6 +2,7 @@ library(shiny)
 library(shinyjs)
 library(DT)
 library(rhandsontable)
+library(yaml)
 
 source("functions.R")
 
@@ -12,7 +13,6 @@ shinyServer(function(input, output, session) {
     
     if (is.null(read_path)) {
         read_path <- "../../../bdchecks"
-        print(read_path)
     }
     
     if (save_origin) {
@@ -38,7 +38,7 @@ shinyServer(function(input, output, session) {
         }
         
         return(tagList(dashboardSidebar(
-            sidebarMenu(id = "menuslo", menus)
+            sidebarMenu(id = "menuslo", menus), width = 400
         )))
     })
     
@@ -137,10 +137,10 @@ shinyServer(function(input, output, session) {
             fluidRow(column(
                 12,
                 column(
-                    6,
+                    7,
                     tags$div(tagList(tabs), class = "tab-content", id = "sideTabs")
                 ),
-                column(6,
+                column(5,
                        div(id = "yaml",
                            fluidRow(
                                textAreaInput(
@@ -206,12 +206,10 @@ shinyServer(function(input, output, session) {
             
             name <-
                 gsub("``", "`", gsub("$", "`$`", gsub("$", "`", nameOri), fixed = T), fixed = T)
-            print(is.null(nameOri))
             
             if (!is.null(nameOri)) {
                 if (nchar(elems[[index]]) > 0 && grepl("`DC_", name)) {
-                    print(name)
-                    
+   
                     tryCatch({
                         eval(parse(
                             text = paste0(
@@ -245,9 +243,7 @@ shinyServer(function(input, output, session) {
                     
                 } else if (nchar(elems[[index]]) > 0 &&
                            grepl("_rcode", name)) {
-                    dir.create(file.path(paste0(write_path, "/R")), recursive = T)
-                    
-                    print(strsplit(name, "_rcode")[[1]][1])
+                    dir.create(file.path(paste0(write_path, "/R")), recursive = T, showWarnings = F)
                     
                     writeLines(elems[[index]],
                                paste0(
