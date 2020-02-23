@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.container-fluid {
+     padding-right: 0; 
+     padding-left: 0; 
+     margin-right: 0; 
+     margin-left: 0; 
+}
+
+.primaryHeader {
+  color: #90e692;
+}
+
+textarea {
+  font-family: monospace;
+  font-size: 12px !important;
+  min-height: 400px;
+  min-width: 500px;
+}
+
+#yaml textarea {
+  min-height: 800px;
+    background: #222d33;
+    color: #a5b3ba;
+}
+
+.form-control { 
+  width: 150%;
+}
+
+hr {
+  border-top: 1px solid black;
+}
+
+.secondaryHeaders, a{
+    color: #90e692;
+}   
+
+
+.skin-blue .main-header .navbar {
+   background-color: #90e692;
+}
+
+.skin-blue .main-header .logo {
+     background-color: #90e692;
+}
+
+.skin-blue .main-header .logo:hover {
+     background-color: #90e692;
+}
+
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+    border-left-color: #90e692;
+}
