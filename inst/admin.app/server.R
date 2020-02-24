@@ -207,7 +207,7 @@ shinyServer(function(input, output, session) {
             name <-
                 gsub("``", "`", gsub("$", "`$`", gsub("$", "`", nameOri), fixed = T), fixed = T)
             
-            if (!is.null(nameOri)) {
+            if ((!is.null(nameOri)) && (length(elems) > 0)) {
                 if (nchar(elems[[index]]) > 0 && grepl("`DC_", name)) {
    
                     tryCatch({
