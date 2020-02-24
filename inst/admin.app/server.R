@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
                 menuItem(
                     checks[[i]]$name,
                     tabName = checks[[i]]$name,
-                    icon = icon("plus-circle")
+                    icon = icon("search", lib = "glyphicon")
                 )
         }
         
@@ -207,7 +207,7 @@ shinyServer(function(input, output, session) {
             name <-
                 gsub("``", "`", gsub("$", "`$`", gsub("$", "`", nameOri), fixed = T), fixed = T)
             
-            if (!is.null(nameOri)) {
+            if ((!is.null(nameOri)) && (length(elems) > 0)) {
                 if (nchar(elems[[index]]) > 0 && grepl("`DC_", name)) {
    
                     tryCatch({
@@ -255,7 +255,6 @@ shinyServer(function(input, output, session) {
                                ))
                 }
             }
-            
         }
         
         updateTextAreaInput(session, "yaml", value = paste(as.yaml(checks), collapse = "\n"))
