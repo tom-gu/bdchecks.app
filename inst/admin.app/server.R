@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
                 menuItem(
                     checks[[i]]$name,
                     tabName = checks[[i]]$name,
-                    icon = icon("plus-circle")
+                    icon = icon("search", lib = "glyphicon")
                 )
         }
         
@@ -255,7 +255,6 @@ shinyServer(function(input, output, session) {
                                ))
                 }
             }
-            
         }
         
         updateTextAreaInput(session, "yaml", value = paste(as.yaml(checks), collapse = "\n"))
