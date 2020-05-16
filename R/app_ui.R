@@ -1,5 +1,4 @@
 #' @import shiny shinydashboard bdutilities.app golem
-#' @export
 app_ui <- function() {
   tagList(
     dashboardPage(
