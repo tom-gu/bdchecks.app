@@ -1,4 +1,5 @@
 #' @import shiny bdutilities.app shinyjs bdutilities
+#' @export
 app_server <- function(input, output,session) {
     
     session$onSessionEnded(function() {
