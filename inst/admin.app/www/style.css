@@ -16,7 +16,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, .main-header .logo {
 }
 
 .primaryHeader {
-  color: #90e692;
+  color: #87ad88;
 }
 
 textarea {
@@ -41,22 +41,22 @@ hr {
 }
 
 .secondaryHeaders, a{
-    color: #90e692;
+    color: #87ad88;
 }   
 
 
 .skin-blue .main-header .navbar {
-   background-color: #90e692;
+   background-color: #87ad88;
 }
 
 .skin-blue .main-header .logo {
-     background-color: #90e692;
+     background-color: #87ad88;
 }
 
 .skin-blue .main-header .logo:hover {
-     background-color: #90e692;
+     background-color: #87ad88;
 }
 
 .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
-    border-left-color: #90e692;
+    border-left-color: #87ad88;
 }

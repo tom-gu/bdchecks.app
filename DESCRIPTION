@@ -39,6 +39,8 @@ Imports:
     shiny,
     shinydashboard,
     shinyjs,
+    rhandsontable,
+    yaml,
     bdchecks (>= 0.1.3),
     bdutilities.app (>= 0.0.1),
     bdutilities

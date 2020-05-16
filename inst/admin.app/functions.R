@@ -1,6 +1,6 @@
 ##### CONFIGURATIONS ###########
 
-.GlobalEnv$.bdchecksLocation <- "/Users/thiloshonnagarajah/RProjects/bdchecks"
+.GlobalEnv$.bdchecksLocation <- "/cloud/project/bdchecks-master"
 # give the root of bdchecks package "~/RProjects/bdchecks/"
 .GlobalEnv$.saveToOrigin <- TRUE
 
