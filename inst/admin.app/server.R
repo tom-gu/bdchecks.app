@@ -240,7 +240,6 @@ shinyServer(function(input, output, session) {
                         })
                     })
                     
-                    
                 } else if (nchar(elems[[index]]) > 0 &&
                            grepl("_rcode", name)) {
                     dir.create(file.path(paste0(write_path, "/R")), recursive = T, showWarnings = F)
