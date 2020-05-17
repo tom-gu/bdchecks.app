@@ -17,22 +17,13 @@ mod_configure_checks_ui <- function(id) {
   ns <- NS(id)
   
   darwinCoreClass <- get_dc_groups("DarwinCoreClass")
-  dimension <- get_dc_groups("dimension")
-  warning <- get_dc_groups("warning")
-  output <- get_dc_groups("output")
-  # severity <- get_dc_groups("severity")
   
   components <- list()
   
   for (check in bdchecks::data.checks@dc_body) {
     components[[length(components) + 1]] <- tagList(
     div(
-      class = "element-item checksListContent",
-      "darwinCoreClass" = darwinCoreClass[check@name, ]$group,
-      "dimension" = dimension[check@name, ]$group,
-      "warning" = warning[check@name, ]$group,
-      "output" = output[check@name, ]$group,
-      # "severity" = severity[check@name, ]$group,
+      class = paste("element-item checksListContent", darwinCoreClass[check@name, ]$group),
       
       HTML(
         paste(
@@ -91,39 +82,45 @@ mod_configure_checks_ui <- function(id) {
     fluidRow(column(
       5,
       div(
-        p("Sort Checks By: "),
+        p("Filter Checks By: "),
         class = "btn-group btn-group-justified",
         "role" = "group",
         actionButton(
-          "sortBydarwinCoreClass",
+          "noFilter",
           class = "button is-checked ",
-          label = "Darwin Core Class",
-          "data-sort-value" = "darwinCoreClass"
+          label = "All",
+          "data-sort-value" = "*"
         ),
         actionButton(
-          "sortBydimension",
-          class = "button",
-          label = "Dimension",
-          "data-sort-value" = "dimension"
+          "filterByLocation",
+          class = "button is-checked ",
+          label = "Location",
+          "data-sort-value" = ".location"
         ),
         actionButton(
-          "sortBywarning",
-          class = "button",
-          label = "Warning Type",
-          "data-sort-value" = "warning"
+          "filterByTaxon",
+          class = "button is-checked ",
+          label = "Taxon",
+          "data-sort-value" = ".taxon"
         ),
         actionButton(
-          "sortByoutput",
-          class = "button",
-          label = "Output Type",
-          "data-sort-value" = "output")
-        # ),
-        # actionButton(
-        #   "sortByseverity",
-        #   class = "button",
-        #   label = "Severity",
-        #   "data-sort-value" = "severity"
-        # )
+          "filterByEvent",
+          class = "button is-checked ",
+          label = "Event",
+          "data-sort-value" = ".event"
+        ),
+        actionButton(
+          "filterByOccurence",
+          class = "button is-checked ",
+          label = "Occurence",
+          "data-sort-value" = ".occurrence"
+        ),
+        actionButton(
+          "filterByTerms",
+          class = "button is-checked ",
+          label = "Record-level Terms",
+          "data-sort-value" = ".record-level_terms"
+        )
       )
     ),
     column(
