@@ -19,13 +19,15 @@ shinyServer(function(input, output, session) {
         write_path <- read_path
     }
     
+    #-------- Source Data ------
     checks <-
         read_yaml(paste0(read_path, "/inst/extdata/data_check.yaml"))
     tests <-
         yaml_to_dataframe(path = paste0(read_path, "/inst/extdata/data_test.yaml"))
     scripts <- paste0(read_path, "/R")
     
-    output$menu <- renderUI({
+    #------ Side Bar Menus
+    output$sideBar_menu_UI <- renderMenu({
         menus <- list()
         
         for (i in 1:length(checks)) {
@@ -37,9 +39,7 @@ shinyServer(function(input, output, session) {
                 )
         }
         
-        return(tagList(dashboardSidebar(
-            sidebarMenu(id = "menuslo", menus), width = 400
-        )))
+        return(sidebarMenu(id = "tabs", menus))
     })
     
     output$tab <- renderUI({
@@ -125,38 +125,27 @@ shinyServer(function(input, output, session) {
         
         
         
-        return(dashboardBody(
-            tags$head(
-                tags$link(
-                    rel = "stylesheet",
-                    type = "text/css",
-                    href = "style.css"
-                )
+        return(tagList(fluidRow(column(
+            12,
+            column(
+                7,
+                tags$div(tagList(tabs), class = "tab-content", id = "sideTabs")
             ),
-            useShinyjs(),
-            fluidRow(column(
-                12,
-                column(
-                    7,
-                    tags$div(tagList(tabs), class = "tab-content", id = "sideTabs")
-                ),
-                column(5,
-                       div(id = "yaml",
-                           fluidRow(
-                               textAreaInput(
-                                   "yaml",
-                                   label = "YAML File",
-                                   value = paste(as.yaml(checks), collapse = "\n")
-                               )
-                           )))
-            ))
-        ))
+            column(5,
+                   div(id = "yamlDiv",
+                       fluidRow(
+                           textAreaInput(
+                               "yaml",
+                               label = "YAML File",
+                               value = paste(as.yaml(checks), collapse = "\n")
+                           )
+                       )))
+        ))))
     })
     
     output$textWithNewlines <- renderUI({
         rawText <-
             readLines(paste0(write_path, "/inst/extdata/data_check.yaml"))
-        
         
         splitText <-
             stringi::stri_split(str = rawText, regex = '\\n')
@@ -209,7 +198,6 @@ shinyServer(function(input, output, session) {
             
             if ((!is.null(nameOri)) && (length(elems) > 0)) {
                 if (nchar(elems[[index]]) > 0 && grepl("`DC_", name)) {
-   
                     tryCatch({
                         eval(parse(
                             text = paste0(
@@ -242,7 +230,11 @@ shinyServer(function(input, output, session) {
                     
                 } else if (nchar(elems[[index]]) > 0 &&
                            grepl("_rcode", name)) {
-                    dir.create(file.path(paste0(write_path, "/R")), recursive = T, showWarnings = F)
+                    dir.create(
+                        file.path(paste0(write_path, "/R")),
+                        recursive = T,
+                        showWarnings = F
+                    )
                     
                     writeLines(elems[[index]],
                                paste0(
@@ -259,6 +251,19 @@ shinyServer(function(input, output, session) {
         updateTextAreaInput(session, "yaml", value = paste(as.yaml(checks), collapse = "\n"))
         write_yaml(checks,
                    paste0(write_path, "/inst/extdata/data_check.yaml"))
+    })
+    
+    
+    
+    observe({
+        input$tabs
+        shinyjs::runjs(paste0(
+            "yaml.selectionStart = yaml.value.indexOf('",
+            input$tabs,
+            "');yaml.selectionEnd = yaml.value.indexOf('",
+            input$tabs,
+            "');yaml.blur();yaml.focus();"
+        ))
     })
     
 })
